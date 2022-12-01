@@ -66,8 +66,14 @@ function game() {
     for(let i = 0; i < 5; i++ ){
 
 
+
         let userInput = prompt('Please choose between rock, paper and scissors');
-        let playerSelection = userInput.toLowerCase();
+
+        if (userInput === null) {
+            i--;
+        }else {
+
+         playerSelection = userInput.toLowerCase();
 
         if(!isNaN(playerSelection)) {
             round = "Please enter either paper, scissors or rock";
@@ -83,11 +89,13 @@ function game() {
 
 
         if (playerWin > computerWin) {
-            round = `Player has most wins: ${playerWin} wins`;
+            round = `You win, Player has most wins: ${playerWin} wins`;
         }else if (playerWin < computerWin) {
-            round = `Computer has most wins: ${computerWin} wins`;
+            round = `You lose, Computer has most wins: ${computerWin} wins`;
         } else{
             round = "No winner, same number of wins"
+        }
+
         }
 
     }
