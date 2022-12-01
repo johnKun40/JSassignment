@@ -20,7 +20,6 @@ function computerPlay(){
         computerSelection = "scissors";
         break;
     }
-
     return computerSelection;
 }
 
@@ -50,7 +49,6 @@ function playRound(playerSelection) {
         gameResult = "You lose, Computer chose paper";
         computerWin++;
     }
-
     return gameResult
 }
 
@@ -62,6 +60,8 @@ function game() {
         let userInput = prompt('Please choose between rock, paper and scissors');
 
         if (userInput === null) {
+            gameRound = "You pressed Cancel, Type your choice and press Ok"
+            console.log(gameRound)
             i--;
         }else {
 
