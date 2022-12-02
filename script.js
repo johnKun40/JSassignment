@@ -65,10 +65,10 @@ function game() {
             i--;
         }else {
 
-            playerSelection = userInput.toLowerCase();
+            playerSelection = userInput.toLowerCase().split(' ').join('');
 
             if(!isNaN(playerSelection)) {
-                gameRound = "Please enter either paper, scissors or rock";
+                gameRound = "Please type either paper, scissors or rock";
                 console.log(gameRound)
                 i--;
             } else if (playerSelection === "paper" || playerSelection === "scissors" || playerSelection === "rock") {
@@ -86,6 +86,7 @@ function game() {
             } else{
                 gameRound = "No winner, same number of wins";
             }
+
         }
     }
     console.log(gameRound)
