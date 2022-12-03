@@ -4,6 +4,7 @@ let playerWin = 0;
 let computerWin = 0;
 let gameResult;
 let gameRound;
+let playNumber = 0;
 
 
 function computerPlay(){
@@ -54,6 +55,10 @@ function playRound(playerSelection) {
 
 
 function game() {
+
+    playNumber++;
+    playerWin = 0;
+    computerWin = 0;
  
     for(let i = 0; i < 5; i++ ){
 
@@ -72,7 +77,7 @@ function game() {
                 console.log(gameRound)
                 i--;
             } else if (playerSelection === "paper" || playerSelection === "scissors" || playerSelection === "rock") {
-                console.log(playRound(playerSelection), i);  
+                console.log(playRound(playerSelection), i); 
             } else {
                 gameRound = "Wrong spelling, Please spell correctly: paper, rock or scissors";
                 console.log(gameRound);
@@ -90,6 +95,13 @@ function game() {
         }
     }
     console.log(gameRound)
+
+    if (confirm("Play Again?")) {
+        game(); 
+    } else {
+        console.log('You pressed cancel, You are not playing again')
+        console.log(`Number of plays: ${playNumber}`)
+    }
 }
 
 game();
