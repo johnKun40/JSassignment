@@ -62,7 +62,7 @@ function game() {
  
     for(let i = 0; i < 5; i++ ){
 
-        let userInput = prompt('Please choose between rock, paper and scissors');
+        let userInput = prompt('Welcome to rock, paper scissors. Please choose between rock, paper and scissors');
 
         if (userInput === null) {
             gameRound = "You pressed Cancel, Type your choice and press Ok"
