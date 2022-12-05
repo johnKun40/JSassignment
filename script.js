@@ -4,6 +4,7 @@ let playerWin = 0;
 let computerWin = 0;
 let gameResult;
 let gameRound;
+let userPlays;
 let playNumber = 0;
 
 
@@ -24,13 +25,37 @@ function computerPlay(){
     return computerSelection;
 }
 
+function userPlay() {
 
-function playRound(playerSelection) {
+    let promptText = "Welcome to Rock, Paper and Scissors\n" + "Please type rock, paper or scissors to play";
+    let userInput = prompt(promptText)
+
+    if(userInput === null) {
+        userInput = prompt("You pressed cancel, please type rock, paper or scissors")
+    }
+
+    userInput.toLowerCase().split(' ').join('');
+
+    while (
+      userInput !== "rock" &&
+      userInput !== "paper" &&
+      userInput !== "scissors"
+    ) {
+      userInput = prompt("Incorrect option\n" + promptText).toLowerCase().split(' ').join('');
+    }
+
+    return userInput;
+
+}
+
+
+function playRound() {
 
     computerChoice = computerPlay();
+    playerSelection = userPlay();
 
     if(playerSelection == computerChoice){
-        gameResult = "Draw";
+        gameResult = "Draw, You played the same choice";
     }else if(playerSelection === "rock" && computerChoice === "scissors"){
         gameResult = "You win, Computer chose scissors";
         playerWin++;
@@ -56,52 +81,31 @@ function playRound(playerSelection) {
 
 function game() {
 
-    playNumber++;
-    playerWin = 0;
-    computerWin = 0;
- 
+
     for(let i = 0; i < 5; i++ ){
+        console.log(playRound(), i)
+        playNumber++;
+    }
 
-        let userInput = prompt('Welcome to rock, paper scissors. Please choose between rock, paper and scissors');
-
-        if (userInput === null) {
-            gameRound = "You pressed Cancel, Type your choice and press Ok"
-            console.log(gameRound)
-            i--;
-        }else {
-
-            playerSelection = userInput.toLowerCase().split(' ').join('');
-
-            if(!isNaN(playerSelection)) {
-                gameRound = "Please type either paper, scissors or rock";
-                console.log(gameRound)
-                i--;
-            } else if (playerSelection === "paper" || playerSelection === "scissors" || playerSelection === "rock") {
-                console.log(playRound(playerSelection), i); 
-            } else {
-                gameRound = "Wrong spelling, Please spell correctly: paper, rock or scissors";
-                console.log(gameRound);
-                i--;
-            }
-
-            if (playerWin > computerWin) {
-                gameRound = `You win, Player has most wins: ${playerWin} wins`;
-            }else if (playerWin < computerWin) {
-                gameRound = `You lose, Computer has most wins: ${computerWin} wins`;
-            } else{
-                gameRound = "No winner, same number of wins";
-            }
-
-        }
+    if (playerWin > computerWin) {
+        gameRound = `You win, Player has most wins: ${playerWin} wins`;
+    }else if (playerWin < computerWin) {
+        gameRound = `You lose, Computer has most wins: ${computerWin} wins`;
+    } else{
+        gameRound = "No winner, same number of wins";
     }
     console.log(gameRound)
 
     if (confirm("Play Again?")) {
+        playerWin = 0;
+        computerWin = 0;
         game(); 
     } else {
         console.log('You pressed cancel, You are not playing again')
         console.log(`Number of plays: ${playNumber}`)
     }
+
+
 }
 
 game();
