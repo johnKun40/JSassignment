@@ -28,23 +28,27 @@ function computerPlay(){
 function userPlay() {
 
     let promptText = "Welcome to Rock, Paper and Scissors\n" + "Please type rock, paper or scissors to play";
+    let incorrectText = "Please type rock, paper or scissors"
     let userInput = prompt(promptText)
+    let userInputs
+    
 
     if(userInput === null) {
         userInput = prompt("You pressed cancel, please type rock, paper or scissors")
-    }
+    }else{
 
-    userInput.toLowerCase().split(' ').join('');
+    userInputs = userInput.toLowerCase().split(' ').join('');
 
     while (
-      userInput !== "rock" &&
-      userInput !== "paper" &&
-      userInput !== "scissors"
+      userInputs !== "rock" &&
+      userInputs !== "paper" &&
+      userInputs !== "scissors"
     ) {
-      userInput = prompt("Incorrect option\n" + promptText).toLowerCase().split(' ').join('');
+      userInputs = prompt("Incorrect option\n" + incorrectText).toLowerCase().split(' ').join('');
+    }
     }
 
-    return userInput;
+    return userInputs;
 
 }
 
@@ -83,7 +87,7 @@ function game() {
 
 
     for(let i = 0; i < 5; i++ ){
-        console.log(playRound(), i)
+        console.log(playRound(),`\nRound ${i + 1}`);
         playNumber++;
     }
 
