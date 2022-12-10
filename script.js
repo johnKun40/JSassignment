@@ -7,6 +7,35 @@ let gameRound;
 let userPlays;
 let playNumber = 0;
 
+let rockPlay = document.querySelector('.rock');
+let paperPlay = document.querySelector('.paper');
+let scissorsPlay = document.querySelector('.scissors');
+let round = document.querySelector('.game-round');   
+let playerScore = document.querySelector('.player-score');
+let computerScore = document.querySelector('.computer-score');
+let winner = document.querySelector('.game-winner');
+let restart = document.querySelector('.game-button');
+let welcome = document.querySelector('.welcome-button');
+let welcomeWrapper = document.querySelector('.welcome');
+let gameWrapper = document.querySelector('.game-wrapper');
+
+welcome.addEventListener('click', () => {
+    welcomeWrapper.style.display = 'none'
+    gameWrapper.style.display = 'block'
+})
+
+rockPlay.addEventListener('click', () => {
+    playRound("rock")
+});
+
+paperPlay.addEventListener('click', () => {
+    playRound("paper")
+});
+
+scissorsPlay.addEventListener('click', () => {
+    playRound("scissors")
+});
+
 
 function computerPlay(){
     const randNum = Math.floor(Math.random() * 3) + 1;
@@ -25,91 +54,72 @@ function computerPlay(){
     return computerSelection;
 }
 
-function userPlay() {
-
-    let promptText = "Welcome to Rock, Paper and Scissors\n" + "Please type rock, paper or scissors to play";
-    let incorrectText = "Please type rock, paper or scissors"
-    let userInput = prompt(promptText)
-    let userInputs
-    
-
-    if(userInput === null) {
-        userInput = prompt("You pressed cancel, please type rock, paper or scissors")
-    }else{
-
-    userInputs = userInput.toLowerCase().split(' ').join('');
-
-    while (
-      userInputs !== "rock" &&
-      userInputs !== "paper" &&
-      userInputs !== "scissors"
-    ) {
-      userInputs = prompt("Incorrect option\n" + incorrectText).toLowerCase().split(' ').join('');
-    }
-    }
-
-    return userInputs;
-
-}
 
 
-function playRound() {
+function playRound(playerSelection) {
 
     computerChoice = computerPlay();
-    playerSelection = userPlay();
+    
 
     if(playerSelection == computerChoice){
-        gameResult = "Draw, You played the same choice";
+        round.textContent = "Draw, You played the same choice";
     }else if(playerSelection === "rock" && computerChoice === "scissors"){
-        gameResult = "You win, Computer chose scissors";
+        round.textContent = "You win, Computer chose scissors";
         playerWin++;
     }else if(playerSelection === "scissors" && computerChoice === "paper"){
-        gameResult = "You win, Computer chose paper";
+        round.textContent = "You win, Computer chose paper";
         playerWin++;
     }else if(playerSelection === "paper" && computerChoice === "rock"){
-        gameResult = "You win, Computer chose rock";
+        round.textContent = "You win, Computer chose rock";
         playerWin++;
     }else if(playerSelection === "scissors" && computerChoice === "rock"){
-        gameResult = "You lose, Computer chose rock";
+        round.textContent = "You lose, Computer chose rock";
         computerWin++;
     }else if(playerSelection === "paper" && computerChoice === "scissors"){
-        gameResult = "You lose, Computer chose scissors";
+        round.textContent = "You lose, Computer chose scissors";
         computerWin++;
     }else if(playerSelection === "rock" && computerChoice === "paper") {
-        gameResult = "You lose, Computer chose paper";
+        round.textContent = "You lose, Computer chose paper";
         computerWin++;
     }
-    return gameResult
+    // return gameResult 
+    playerScore.innerHTML = playerWin;
+    computerScore.innerHTML = computerWin;
+
+    game()
+
 }
 
 
-function game() {
+function game(){
 
-
-    for(let i = 0; i < 5; i++ ){
-        console.log(playRound(),`\nRound ${i + 1}`);
-        playNumber++;
-    }
-
-    if (playerWin > computerWin) {
-        gameRound = `You win, Player has most wins: ${playerWin} wins`;
-    }else if (playerWin < computerWin) {
-        gameRound = `You lose, Computer has most wins: ${computerWin} wins`;
-    } else{
-        gameRound = "No winner, same number of wins";
-    }
-    console.log(gameRound)
-
-    if (confirm("Play Again?")) {
-        playerWin = 0;
+    if (playerWin == 5){
+        winner.textContent = "Player wins!, 5 wins"
         computerWin = 0;
-        game(); 
-    } else {
-        console.log('You pressed cancel, You are not playing again')
-        console.log(`Number of plays: ${playNumber}`)
+        playerWin = 0;
+    
+        playerScore.innerHTML = 0;
+        computerScore.innerHTML = 0;
+    }else if(computerWin == 5){
+        winner.textContent = "Computer wins!, 5 wins"
+        computerWin = 0;
+        playerWin = 0;
+    
+        playerScore.innerHTML = 0;
+        computerScore.innerHTML = 0;
     }
 
 
 }
 
-game();
+
+restart.addEventListener('click', () => {
+    computerWin = 0;
+    playerWin = 0;
+
+    playerScore.innerHTML = 0;
+    computerScore.innerHTML = 0;
+
+
+})
+
